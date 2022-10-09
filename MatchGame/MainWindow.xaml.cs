@@ -33,9 +33,10 @@ namespace MatchGame
 		{
 			
 			InitializeComponent();
-			SetupGame();
+			
 			timer.Interval = TimeSpan.FromSeconds(.1);
 			timer.Tick += Timer_Tick;
+			SetupGame();
 		}
 
 		private void Timer_Tick(object sender, EventArgs e)
@@ -51,6 +52,7 @@ namespace MatchGame
 
 		private void SetupGame()
 		{
+			
 			List<string> animalEmoji = new List<string>()
 			{
 				"🙈","🙈",
@@ -67,6 +69,7 @@ namespace MatchGame
 
 			foreach (TextBlock textBlock in mainGrid.Children.OfType<TextBlock>()) 
 			{
+				textBlock.Visibility = Visibility.Visible;
 				if (textBlock.Name != "timeTextBlock")
 				{
 					int index = random.Next(animalEmoji.Count);
@@ -102,6 +105,14 @@ namespace MatchGame
 				findMatching = false;
 			}
 
+		}
+
+		private void timeTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (matchesFound == 8)
+			{
+				SetupGame();
+			}
 		}
 	}
 }
